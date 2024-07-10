@@ -1,28 +1,27 @@
 """
-QUESTION 1: Alice has some cards with numbers written on them. She arranges the cards in decreasing order, and lays them out face down in a sequence on a table. She challenges Bob to pick out the card containing a given number by turning over as few cards as possible. Write a function to help Bob locate the card.
-"""
-# Sorted List [13,11,12,7,4,3,1,0]
-"""
-We need to write a program to find the position of a given number in a list of numbers arranged in decreasing order. We also need to minimize the number of times we access elements from the list.
+Keep the track of the search space in the list 
 """
 def locate_card(cards,query):
+    lo, hi  =  0, len(cards) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        mid_number = cards[mid]
+        print("lo:", lo, "hi:", hi, "mid: ", mid, "mid_number:", mid_number)
+        if mid_number == query:
+            return mid
+        elif mid_number < query:
+            hi = mid - 1
+        elif mid_number > query:
+            lo = mid + 1
     
-    position = 0
-    while True:
-        if cards[position] == query:
-            return position
-        
-        position += 1
-        
-        if position == len(cards):
-            return -1
-    
-object_dict = {
-    'input': {
-        'cards': [7,6,5,4,3,2,1],
-        'query': 4
+    return -1 
+
+dict_tests = {
+    "input": {
+        "cards": [1,2,4,5,6,7,8],
+        "query": 8
     }
 }
 
-results = locate_card(**object_dict['input'])
+results = locate_card(**dict_tests['input'])
 print(results)
